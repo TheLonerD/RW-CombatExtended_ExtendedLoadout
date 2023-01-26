@@ -22,7 +22,7 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
     [UsedImplicitly]
     public static MethodBase TargetMethod()
     {
-        var type = AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass6_0");
+        var type = AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass8_0");
         return AccessTools.Method(type, "<FindPickup>b__3");
     }
 
@@ -39,7 +39,7 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
           IL_001a:  brtrue.s   IL_0043
          */
         var isForbidden = AccessTools.Method(typeof(ForbidUtility), nameof(ForbidUtility.IsForbidden), new[] { typeof(Thing), typeof(Pawn) });
-        var thisPawn = AccessTools.Field(AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass6_0"), "pawn");
+        var thisPawn = AccessTools.Field(AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass8_0"), "pawn");
         var idx = code.FindIndex(ci => ci.Calls(isForbidden));
         if (idx == -1)
         {

@@ -15,6 +15,7 @@ public static class LoadoutMulti_Manager
 
     public static void ExposeData(LoadoutManager __instance)
     {
+        Log.Warning("ExposeData Multi Entered");
         Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList);
 
         // fix for old saves

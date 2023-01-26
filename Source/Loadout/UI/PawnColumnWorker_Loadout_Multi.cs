@@ -66,6 +66,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
 
     public override void DoHeader(Rect rect, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_Loadout_Multi.DoHeader Entered");
         if (GetIndexFromDefName(def.defName) == 0)
         {
             base.DoHeader(rect, table);
@@ -123,6 +124,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
 
     public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_Loadout_Multi.DoCell Entered");
         if (pawn.outfits == null)
         {
             return;

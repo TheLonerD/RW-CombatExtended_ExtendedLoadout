@@ -17,7 +17,7 @@ public class Dialog_ManageLoadouts_Patch
         // 'Manage loadouts' button in Assign tab
         yield return AccessTools.Method(typeof(PawnColumnWorker_Loadout), nameof(PawnColumnWorker_Loadout.DoHeader));
         // method replaced by PawnColumnWorker_Loadout_Multi
-        //yield return AccessTools.Method(typeof(PawnColumnWorker_Loadout), nameof(PawnColumnWorker_Loadout.DoCell));
+        yield return AccessTools.Method(typeof(PawnColumnWorker_Loadout), nameof(PawnColumnWorker_Loadout.DoCell));
     }
 
     [HarmonyTranspiler]

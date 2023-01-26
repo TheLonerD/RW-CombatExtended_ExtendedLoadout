@@ -59,8 +59,8 @@ public class ExtendedLoadoutMod : ModBase
         // init settings
         var modSettingsPack = HugsLibController.Instance.Settings.GetModSettings("CombatExtended.ExtendedLoadout");
         var UseHpAndQualityInLoadouts = modSettingsPack.GetHandle($"UseHpAndQualityInLoadouts", "Settings.UseHpAndQualityInLoadouts.Label".Translate(), "Settings.UseHpAndQualityInLoadouts.Desc".Translate(), true);
-        var UseMultiLoadouts = modSettingsPack.GetHandle($"UseMultiLoadouts", "Settings.UseMultiLoadouts.Label".Translate(), "Settings.UseMultiLoadouts.Desc".Translate(), true);
-        var MultiLoadoutsCount = modSettingsPack.GetHandle($"MultiLoadoutsCount", "Settings.MultiLoadoutsCount.Label".Translate(), "Settings.MultiLoadoutsCount.Desc".Translate(), 3, value => int.TryParse(value, out int num) && num is >= 2 and <= 10);
+        var UseMultiLoadouts = modSettingsPack.GetHandle($"UseMultiLoadouts", "Settings.UseMultiLoadouts.Label".Translate(), "Settings.UseMultiLoadouts.Desc".Translate(), false);
+        var MultiLoadoutsCount = modSettingsPack.GetHandle($"MultiLoadoutsCount", "Settings.MultiLoadoutsCount.Label".Translate(), "Settings.MultiLoadoutsCount.Desc".Translate(), 1, value => int.TryParse(value, out int num) && num is >= 2 and <= 10);
         MultiLoadoutsCount.VisibilityPredicate = () => UseMultiLoadouts;
 
         // column names settings

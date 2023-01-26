@@ -41,6 +41,7 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
 
     public override void DoHeader(Rect rect, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_UpdateLoadoutNow.DoHeader Entered");
         base.DoHeader(rect, table);
         Rect rect2 = new Rect(rect.x, rect.y + (rect.height - TopAreaHeight), Mathf.Min(rect.width, 360f), ManageOutfitsButtonHeight);
         Log.Warning("Attempting to Make button");
@@ -60,6 +61,7 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
      */
     public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_UpdateLoadoutNow.DoCell Entered");
         if (pawn.outfits == null)
         {
             return;

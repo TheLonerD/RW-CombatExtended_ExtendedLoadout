@@ -21,7 +21,7 @@ public class Dialog_ManageLoadouts_DoWindowContents_Patch
     [UsedImplicitly]
     public static IEnumerable<CodeInstruction> DoWindowContents_Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        var drawSlotList = AccessTools.Method(typeof(Dialog_ManageLoadouts), nameof(Dialog_ManageLoadouts.DrawSlotList));
+        var drawSlotList = AccessTools.Method(typeof(Dialog_ManageLoadouts), "DrawSlotList");
 
         bool heightFixed = false;
         bool drawHpQualityInjected = false;
@@ -59,12 +59,12 @@ public class Dialog_ManageLoadouts_DoWindowContents_Patch
 
     public static void DrawHpQuality(Dialog_ManageLoadouts dialog, Rect bulkBarRect)
     {
-        Rect refillRect = new(bulkBarRect.xMin, bulkBarRect.yMax + Dialog_ManageLoadouts._margin, bulkBarRect.width, Dialog_ManageLoadouts._barHeight);
-        Rect hpRect = new(refillRect.xMin, refillRect.yMax + Dialog_ManageLoadouts._margin, refillRect.width, Dialog_ManageLoadouts._barHeight);
-        Rect qualityRect = new(hpRect.xMin, hpRect.yMax + Dialog_ManageLoadouts._margin, hpRect.width, Dialog_ManageLoadouts._barHeight);
+        Rect refillRect = new(bulkBarRect.xMin, bulkBarRect.yMax + 6f, bulkBarRect.width, 24f);
+        Rect hpRect = new(refillRect.xMin, refillRect.yMax + 6f, refillRect.width, 24f);
+        Rect qualityRect = new(hpRect.xMin, hpRect.yMax + 6f, hpRect.width, 24f);
         var loadoutExtended = dialog.CurrentLoadout.Extended();
         
-        GUI.color = Widgets.RangeControlTextColor;
+        GUI.color = new Color(0.6f, 0.6f, 0.6f);
         loadoutExtended.RefillThreshold = Widgets.HorizontalSlider(refillRect, loadoutExtended.RefillThreshold, 0f, 1f, false, "CE_Extended.RefillThreshold".Translate(Mathf.RoundToInt(loadoutExtended.RefillThreshold * 100)), null, null, -1f);
         GUI.color = Color.white;
         

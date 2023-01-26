@@ -16,7 +16,7 @@ static class PlaySettings_DoPlaySettingsGlobalControls_Patch
     }
 }
 
-[HarmonyPatch(typeof(JobGiver_OptimizeApparel), nameof(JobGiver_OptimizeApparel.TryGiveJob))]
+[HarmonyPatch(typeof(JobGiver_OptimizeApparel), "TryGiveJob")]
 static class JobGiver_OptimizeApparel_TryGiveJob_Patch
 {
     public static bool optimizeApparel = false;
