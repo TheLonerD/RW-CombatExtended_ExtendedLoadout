@@ -30,6 +30,7 @@
 		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
     	<NullableReferenceTypes>true</NullableReferenceTypes>
+    	<BaseOutputPath>C:\Users\kacey\Downloads\RW-CombatExtended_ExtendedLoadout-master\RW-CombatExtended_ExtendedLoadout-master\Source\.vscode</BaseOutputPath>
 	</PropertyGroup>
 
 	<!-- Visual Studio Condition for debug build -->
@@ -59,11 +60,45 @@
 		<Reference Include="../../../Combat*Extended/Assemblies/CombatExtended.dll">
 	 	  <Private>False</Private>
 	 	</Reference>
-	 	<Reference Include="../../../Better Pawn Control/Assemblies/BetterPawnControl.dll">
-	 	  <Private>False</Private>
-	 	</Reference>
 		
 	</ItemGroup>
+
+ 	<ItemGroup>
+ 	  <Compile Remove="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
+ 	</ItemGroup>
+
+ 	<ItemGroup>
+ 	  <Reference Include="0Harmony">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\0Harmony.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="Assembly-CSharp">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\Assembly-CSharp.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="BetterPawnControl">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\BetterPawnControl.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="CombatExtended">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\CombatExtended.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="HugsLib">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\HugsLib.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="UnityEngine">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="UnityEngine.CoreModule">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.CoreModule.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="UnityEngine.IMGUIModule">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.IMGUIModule.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="UnityEngine.InputLegacyModule">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+ 	  </Reference>
+ 	  <Reference Include="UnityEngine.TextRenderingModule">
+ 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+ 	  </Reference>
+ 	</ItemGroup>
 
 	<UsingTask TaskName="VersionIncrement" AssemblyFile="msbuild/VersionIncrement.dll" />
 

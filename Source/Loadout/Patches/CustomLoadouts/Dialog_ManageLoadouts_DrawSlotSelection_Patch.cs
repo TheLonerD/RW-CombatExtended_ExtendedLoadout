@@ -14,11 +14,19 @@ namespace CombatExtended.ExtendedLoadout;
 public class Dialog_ManageLoadouts_DrawSlotSelection_Patch
 {
     [HarmonyPrefix]
-    [HarmonyPatch(nameof(Dialog_ManageLoadouts.DrawSlotSelection))]
+    [HarmonyPatch(nameof(DrawSlotSelection))]
     public static bool DrawSlotSelection(Dialog_ManageLoadouts __instance, Rect canvas)
     {
         const float rowHeight = 22f; //Dialog_ManageLoadouts._rowHeight = 28f
 
+        /*
+        FieldInfo sourceTypeInfo = typeof(Dialog_ManageLoadouts).GetField("_sourceType", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo sourceInfo = typeof(Dialog_ManageLoadouts).GetField("_source", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo sourceGenericInfo = typeof(Dialog_ManageLoadouts).GetField("_sourceGeneric", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo darkBackgroundInfo = typeof(Dialog_ManageLoadouts).GetField("_darkBackground", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo availableScrollPositionInfo = typeof(Dialog_ManageLoadouts).GetField("_availableScrollPosition", BindingFlags.NonPublic | BindingFlags.Instance);
+        SourceSelection sourceType = (SourceSelection)sourceTypeInfo.GetValue(new SourceSelection());
+        */
         int count = __instance._sourceType == SourceSelection.Generic ? __instance._sourceGeneric.Count : __instance._source.Count;
         GUI.DrawTexture(canvas, Dialog_ManageLoadouts._darkBackground);
 
@@ -46,7 +54,7 @@ public class Dialog_ManageLoadouts_DrawSlotSelection_Patch
             else
                 TooltipHandler.TipRegion(row, __instance._source[i].thingDef.GetWeightAndBulkTip() /*DescriptionDetailed*/);
 
-            labelRect.xMin += Dialog_ManageLoadouts._margin;
+            labelRect.xMin += 6f; // _margin is now private const.
             if (i % 2 == 0)
                 GUI.DrawTexture(row, Dialog_ManageLoadouts._darkBackground);
 

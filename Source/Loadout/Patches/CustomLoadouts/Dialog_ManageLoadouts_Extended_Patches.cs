@@ -13,7 +13,7 @@ public class Dialog_ManageLoadouts_Patch
     public static IEnumerable<MethodBase> TargetMethods()
     {
         // 'Make loadout' button in Pawn inventory
-        yield return AccessTools.Method(typeof(ITab_Inventory), nameof(ITab_Inventory.FillTab));
+        //yield return AccessTools.Method(typeof(ITab_Inventory), nameof(ITab_Inventory.FillTab));
         // 'Manage loadouts' button in Assign tab
         yield return AccessTools.Method(typeof(PawnColumnWorker_Loadout), nameof(PawnColumnWorker_Loadout.DoHeader));
         // method replaced by PawnColumnWorker_Loadout_Multi

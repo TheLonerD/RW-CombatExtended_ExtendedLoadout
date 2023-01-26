@@ -84,7 +84,7 @@ public static class ITab_Inventory_Patch
             // File.WriteAllLines("a:/after.txt", code.Select(x => x.ToString()));
             return code;
         }
-            
+
         Log.Error($"Outdated transpiler ITab_Inventory.FillTab");
         return instructions;
     }

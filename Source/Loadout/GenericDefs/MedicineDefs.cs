@@ -10,6 +10,8 @@ public class MedicineDefs
 {
     public static void Initialize()
     {
+        // They made Lambda private and inacessible. Needs a harmony patch to work.
+        /*
         List<ThingDef> allowedMedicineDefs = DefDatabase<ThingDef>.AllDefs.Where(x => 
             x.thingCategories != null &&
             x.thingCategories.Contains(ThingCategoryDefOf.Medicine) &&
@@ -39,6 +41,6 @@ public class MedicineDefs
             generic._lambda = td => td != null && td.IsMedicine && allowedMeds.Contains(td);
             generic.isBasic = false;
             DefDatabase<LoadoutGenericDef>.Add(generic);
-        }
+        }*/
     }
 }

@@ -15,11 +15,19 @@ namespace CombatExtended.ExtendedLoadout;
 ///
 /// Versions for MultiLoadout and Standart
 /// </summary>
-[HarmonyPatch(typeof(JobGiver_UpdateLoadout), nameof(JobGiver_UpdateLoadout.FindPickup))]
+[HarmonyPatch(typeof(JobGiver_UpdateLoadout), nameof(FindPickup))]
 [HotSwappable]
 public class JobGiver_UpdateLoadout_FindPickup_RefillThreshold_Patch
 {
     static bool Prepare() => ExtendedLoadoutMod.Instance.useHpAndQualityInLoadouts;
+
+    public enum ItemPriority : byte
+    {
+        None,
+        Low,
+        LowStock,
+        Proximity
+    }
 
     [HarmonyPrefix]
     [UsedImplicitly]

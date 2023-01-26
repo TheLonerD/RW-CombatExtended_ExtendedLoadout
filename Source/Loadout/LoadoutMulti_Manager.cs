@@ -23,9 +23,9 @@ public static class LoadoutMulti_Manager
             assignedLoadoutsMulti = new Dictionary<Pawn, Loadout_Multi>();
 
             // assign CE loadouts
-            if (__instance._assignedLoadouts?.Any() ?? false)
+            if (LoadoutManager.AssignedLoadouts.Any())
             {
-                foreach (var kv in __instance._assignedLoadouts)
+                foreach (var kv in LoadoutManager.AssignedLoadouts)
                 {
                     SetLoadout(kv.Key, kv.Value, 0);
                 }

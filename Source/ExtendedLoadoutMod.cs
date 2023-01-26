@@ -78,7 +78,7 @@ public class ExtendedLoadoutMod : ModBase
                 if (loadoutColumn != null)
                 {
                     loadoutColumn.label = loadoutNames[colId].Value;
-                    loadoutColumn.cachedLabelCap = null; // reset LabelCap cache
+                    loadoutColumn.ClearCachedData(); // reset LabelCap cache
                     DbgLog.Msg($"Changed column name[{colId}]: {loadoutNames[colId]}");
                 }
             };
@@ -108,8 +108,11 @@ public class ExtendedLoadoutMod : ModBase
         // apply patches
         if (useMultiLoadouts && ModActive.BetterPawnControl)
         {
-            BPC.Patch(Harmony);
+            Log.Warning("BPC Is not supported with CE Extended Loadout currently");
+            //BPC.Patch(Harmony);
         }
+
+        Log.Warning("BPC patch passed");
 
         Harmony.PatchAll();
 
@@ -118,10 +121,11 @@ public class ExtendedLoadoutMod : ModBase
             LoadoutProxy_Patch.Unpatch();
         }
 
+        Log.Warning("LoadoutProxy_Patch passed");
         // add generic defs
         MedicineDefs.Initialize();
 
-        Log.Message("[CombatExtended.ExtendedLoadout] Initialized");
+        Log.Warning("[CombatExtended.ExtendedLoadout] Initialized");
     }
 
     private IEnumerable<PawnColumnDef> GeneratePawnColumnDefs(int count)
