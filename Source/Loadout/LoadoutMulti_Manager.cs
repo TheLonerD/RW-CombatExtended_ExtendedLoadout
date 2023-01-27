@@ -15,6 +15,7 @@ public static class LoadoutMulti_Manager
 
     public static void ExposeData(LoadoutManager __instance)
     {
+        Log.Warning("ExposeData Multi Entered");
         Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList);
 
         // fix for old saves
@@ -23,9 +24,9 @@ public static class LoadoutMulti_Manager
             assignedLoadoutsMulti = new Dictionary<Pawn, Loadout_Multi>();
 
             // assign CE loadouts
-            if (__instance._assignedLoadouts?.Any() ?? false)
+            if (LoadoutManager.AssignedLoadouts.Any())
             {
-                foreach (var kv in __instance._assignedLoadouts)
+                foreach (var kv in LoadoutManager.AssignedLoadouts)
                 {
                     SetLoadout(kv.Key, kv.Value, 0);
                 }

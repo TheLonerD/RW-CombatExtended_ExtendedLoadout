@@ -26,7 +26,7 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
 
     #endregion TranspilerReferencedItems
 
-    private static void HoldTrackerClear(Pawn pawn) => pawn.HoldTrackerClear();
+    private static void HoldTrackerClear(Pawn pawn) => HoldTrackerClear(pawn);
 
     private static void UpdateLoadoutNow(Pawn pawn)
     {
@@ -41,10 +41,13 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
 
     public override void DoHeader(Rect rect, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_UpdateLoadoutNow.DoHeader Entered");
         base.DoHeader(rect, table);
         Rect rect2 = new Rect(rect.x, rect.y + (rect.height - TopAreaHeight), Mathf.Min(rect.width, 360f), ManageOutfitsButtonHeight);
+        Log.Warning("Attempting to Make button");
         if (Widgets.ButtonText(rect2, "CE_UpdateLoadoutNow".Translate(), true, false, true))
         {
+            Log.Warning("Wigets Button made");
             foreach (var pawn in Find.CurrentMap?.mapPawns?.AllPawnsSpawned ?? Enumerable.Empty<Pawn>())
             {
                 UpdateLoadoutNow(pawn);
@@ -58,6 +61,7 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
      */
     public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_UpdateLoadoutNow.DoCell Entered");
         if (pawn.outfits == null)
         {
             return;
@@ -72,7 +76,8 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
         float equipNowWidth = "CE_UpdateLoadoutNow".Translate().GetWidthCached();
 
         // Reduce width if we're adding a clear forced button
-        bool somethingIsForced = pawn.HoldTrackerAnythingHeld();
+        List<HoldRecord> holdRecords = LoadoutManager.GetHoldRecords(pawn);
+        bool somethingIsForced = holdRecords != null && !holdRecords.NullOrEmpty<HoldRecord>() && holdRecords.Any<HoldRecord>((Predicate<HoldRecord>)(r => r.pickedUp));
         Rect loadoutRect = new Rect(num3, rect.y + 2f, (float)num, rect.height - 4f);
 
         if (pawn.Spawned)

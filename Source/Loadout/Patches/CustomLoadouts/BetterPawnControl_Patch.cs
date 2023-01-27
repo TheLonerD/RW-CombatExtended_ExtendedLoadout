@@ -17,6 +17,8 @@ public class BPC_AssignLink_Manager
     /// <summary>
     /// Dictionary< AssignLink, List<int> >
     /// </summary>
+    /// 
+    
     private static readonly Dictionary<object, List<int>> LoadoutIds = new();
 
     public static void AddColumnsIds(object link, List<int> columnIds)
@@ -67,7 +69,10 @@ public class BPC_AssignLink_Manager
                 Log.Warning($"[BPC_AssignLink_Manager] Fix loadouts list. Count difference: {sizeDelta}");
                 for (int i = 0; i < sizeDelta; i++)
                 {
-                    columns.Add(LoadoutManager.DefaultLoadout.uniqueID);
+                    string value = "Loadout_" + LoadoutManager.DefaultLoadout.label + "_";
+                    int amount = value.Length;
+                    string uniqueID = LoadoutManager.DefaultLoadout.GetUniqueLoadID().Remove(0, amount);
+                    columns.Add(Int32.Parse(uniqueID));
                 }
 
                 LoadoutIds[instance] = columns;
@@ -124,7 +129,7 @@ public static class BPC
         {
             for (int i = 0; i < columns.Count; i++)
             {
-                var loadout = LoadoutManager.GetLoadoutById(columns[i]);
+                var loadout = LoadoutManager.Loadouts[columns[i]];
                 if (loadout == null)
                     loadout = LoadoutManager.DefaultLoadout;
                 pawn.SetLoadout(loadout, i);

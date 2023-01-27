@@ -4,13 +4,14 @@ namespace CombatExtended.ExtendedLoadout;
 
 public class ModActive
 {
-    private static bool? _betterPawnControl;
+    private static bool _betterPawnControl = false;
 
     public static bool BetterPawnControl
     {
         get
         {
-            return _betterPawnControl ??= ModLister.GetActiveModWithIdentifier("VouLT.BetterPawnControl") != null;
+            Log.Message("BPC ModActive check entered");
+            return ModLister.HasActiveModWithName("Better Pawn Control");
         }
     }
 }

@@ -18,7 +18,7 @@ public class Utility_HoldTracker_Patch
     /// <summary>
     /// Drop only 1 weapon per tick, if original false
     /// </summary>
-    [HarmonyPatch(nameof(Utility_HoldTracker.GetExcessEquipment))]
+    [HarmonyPatch("GetExcessEquipment")]
     [HarmonyPostfix]
     [UsedImplicitly]
     public static void Utility_HoldTracker_GetExcessEquipment(Pawn pawn, ref ThingWithComps dropEquipment, ref bool __result)
@@ -56,7 +56,7 @@ public class Utility_HoldTracker_Patch
     /// <summary>
     /// Drop only 1 weapon per tick, if original false
     /// </summary>
-    [HarmonyPatch(nameof(Utility_HoldTracker.GetExcessThing))]
+    [HarmonyPatch("GetExcessThing")]
     [HarmonyPostfix]
     [UsedImplicitly]
     public static void Utility_HoldTracker_GetExcessThing(Pawn pawn, ref Thing dropThing, ref int dropCount, ref bool __result)

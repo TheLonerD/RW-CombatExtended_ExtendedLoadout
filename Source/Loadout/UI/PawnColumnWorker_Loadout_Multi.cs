@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
@@ -65,6 +66,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
 
     public override void DoHeader(Rect rect, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_Loadout_Multi.DoHeader Entered");
         if (GetIndexFromDefName(def.defName) == 0)
         {
             base.DoHeader(rect, table);
@@ -92,9 +94,11 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
             GUI.DrawTexture(new Rect(rect.x + num, rect.yMax - headerIconSize.y, headerIconSize.x, headerIconSize.y).ContractedBy(2f), def.HeaderIcon);
         }
 
+        // Yup they have been made private static readonly with no way to access them.
+
         if (table.SortingBy == def)
         {
-            var texture2D = table.SortingDescending ? SortingDescendingIcon : SortingIcon;
+            var texture2D = table.SortingDescending ? ContentFinder<Texture2D>.Get("UI/Icons/SortingDescending") : ContentFinder<Texture2D>.Get("UI/Icons/Sorting");
             GUI.DrawTexture(new Rect(rect.xMax - texture2D.width - 1f, rect.yMax - texture2D.height - 1f, texture2D.width, texture2D.height), texture2D);
         }
 
@@ -120,6 +124,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
 
     public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
     {
+        Log.Warning("PawnColumnWorker_Loadout_Multi.DoCell Entered");
         if (pawn.outfits == null)
         {
             return;
@@ -128,12 +133,14 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
         int index = GetIndexFromDefName(def.defName);
 
         //changed: int num = Mathf.FloorToInt((rect.width - 4f) * 0.714285731f);
-        int num = Mathf.FloorToInt((rect.width - 4f) - IconSize);
+        //changed: int num = Mathf.FloorToInt((rect.width - 4f) - IconSize);
+        int num = Mathf.FloorToInt((rect.width - 4f) - 16f);
         //changed: int num2 = Mathf.FloorToInt((rect.width - 4f) * 0.2857143f);
-        int num2 = Mathf.FloorToInt(IconSize);
+        //changed: Mathf.FloorToInt(IconSize);
+        int num2 = Mathf.FloorToInt(16f);
         float num3 = rect.x;
         //added:
-        float num4 = rect.y + ((rect.height - IconSize) / 2);
+        float num4 = rect.y + ((rect.height - 16f) / 2);
 
         // Reduce width if we're adding a clear forced button
         Rect loadoutRect = new(num3, rect.y + 2f, num, rect.height - 4f);
@@ -150,7 +157,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
             {
                 Find.WindowStack.Add(new Dialog_ManageLoadouts_Extended(pawn, (pawn.GetLoadout() as Loadout_Multi)!.PersonalLoadout));
             }
-            TooltipHandler.TipRegion(personalLoadoutRect, new TipSignal(textGetter("CE_Extended.PersonalLoadoutTip"), pawn.GetHashCode() * 6178));
+            TooltipHandler.TipRegion(personalLoadoutRect, new TipSignal(TextGetter("CE_Extended.PersonalLoadoutTip"), pawn.GetHashCode() * 6178));
         }
 
         // Main loadout button
@@ -169,7 +176,12 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
             Find.WindowStack.Add(new Dialog_ManageLoadouts_Extended((pawn.GetLoadout() as Loadout_Multi)![index]));
         }
         // Added this next line.
-        TooltipHandler.TipRegion(assignTabRect, new TipSignal(textGetter("CE_Loadouts"), pawn.GetHashCode() * 613));
+        TooltipHandler.TipRegion(assignTabRect, new TipSignal(TextGetter("CE_Loadouts"), pawn.GetHashCode() * 613));
         num3 += num2;
+    }
+
+    public string TextGetter(string text)
+    {
+        return text;
     }
 }

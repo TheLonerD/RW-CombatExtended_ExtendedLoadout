@@ -57,10 +57,10 @@ public class ExtendedLoadoutMod : ModBase
     public override void DefsLoaded()
     {
         // init settings
-        var modSettingsPack = HugsLibController.Instance.Settings.GetModSettings("CombatExtended.ExtendedLoadout");
-        var UseHpAndQualityInLoadouts = modSettingsPack.GetHandle($"UseHpAndQualityInLoadouts", "Settings.UseHpAndQualityInLoadouts.Label".Translate(), "Settings.UseHpAndQualityInLoadouts.Desc".Translate(), true);
-        var UseMultiLoadouts = modSettingsPack.GetHandle($"UseMultiLoadouts", "Settings.UseMultiLoadouts.Label".Translate(), "Settings.UseMultiLoadouts.Desc".Translate(), true);
-        var MultiLoadoutsCount = modSettingsPack.GetHandle($"MultiLoadoutsCount", "Settings.MultiLoadoutsCount.Label".Translate(), "Settings.MultiLoadoutsCount.Desc".Translate(), 3, value => int.TryParse(value, out int num) && num is >= 2 and <= 10);
+        ModSettingsPack modSettingsPack = HugsLibController.Instance.Settings.GetModSettings("CombatExtended.ExtendedLoadout");
+        SettingHandle<bool> UseHpAndQualityInLoadouts = modSettingsPack.GetHandle("UseHpAndQualityInLoadouts", "Settings.UseHpAndQualityInLoadouts.Label".Translate(), "Settings.UseHpAndQualityInLoadouts.Desc".Translate(), true);
+        SettingHandle<bool> UseMultiLoadouts = modSettingsPack.GetHandle("UseMultiLoadouts", "Settings.UseMultiLoadouts.Label".Translate(), "Settings.UseMultiLoadouts.Desc".Translate(), true);
+        SettingHandle<int> MultiLoadoutsCount = modSettingsPack.GetHandle("MultiLoadoutsCount", "Settings.MultiLoadoutsCount.Label".Translate(), "Settings.MultiLoadoutsCount.Desc".Translate(), 3, value => int.TryParse(value, out int num) && num is >= 2 and <= 10);
         MultiLoadoutsCount.VisibilityPredicate = () => UseMultiLoadouts;
 
         // column names settings
@@ -68,33 +68,28 @@ public class ExtendedLoadoutMod : ModBase
         {
             int colId = i;
             loadoutNames[i] = modSettingsPack.GetHandle($"LoadoutName_{i}", $"Loadout{i + 1}".Translate(), "", $"Loadout{i + 1}".Translate().RawText);
-
-            loadoutNames[i].VisibilityPredicate = () => UseMultiLoadouts && colId < MultiLoadoutsCount;
-
-            loadoutNames[i].ValueChanged += _ =>
+            loadoutNames[i].VisibilityPredicate = () => (bool)UseMultiLoadouts && colId < (int)MultiLoadoutsCount;
+            ((SettingHandle)loadoutNames[i]).ValueChanged += ((Action<SettingHandle>)delegate
             {
-                var assign = DefDatabase<PawnTableDef>.GetNamed("Assign");
-                var loadoutColumn = assign.columns.FirstOrDefault(c => c.defName.Equals($"Loadout_{colId}"));
-                if (loadoutColumn != null)
+                PawnColumnDef pawnColumnDef = Enumerable.FirstOrDefault(DefDatabase<PawnTableDef>.GetNamed("Assign").columns, (PawnColumnDef c) => c.defName.Equals($"Loadout_{colId}"));
+                if (pawnColumnDef != null)
                 {
-                    loadoutColumn.label = loadoutNames[colId].Value;
-                    loadoutColumn.cachedLabelCap = null; // reset LabelCap cache
-                    DbgLog.Msg($"Changed column name[{colId}]: {loadoutNames[colId]}");
+                    pawnColumnDef.label = loadoutNames[colId].Value;
+                    ((Def)pawnColumnDef).cachedLabelCap = null;
                 }
-            };
+            });
         }
 
         // inject columns and set settings  
         useHpAndQualityInLoadouts = UseHpAndQualityInLoadouts;
         if (UseMultiLoadouts && MultiLoadoutsCount >= 2 && MultiLoadoutsCount <= MaxColumnCount)
         {
-            var assign = DefDatabase<PawnTableDef>.GetNamed("Assign");
-            var pawnColumnDefs = assign.columns;
-            int idx = pawnColumnDefs.FindIndex(x => x.defName.Equals("Loadout"));
+            List<PawnColumnDef> columns = DefDatabase<PawnTableDef>.GetNamed("Assign").columns;
+            int idx = columns.FindIndex((PawnColumnDef x) => x.defName.Equals("Loadout"));
             if (idx != -1)
             {
-                pawnColumnDefs.RemoveAt(idx);
-                pawnColumnDefs.InsertRange(idx, GeneratePawnColumnDefs(MultiLoadoutsCount));
+                columns.RemoveAt(idx);
+                columns.InsertRange(idx, GeneratePawnColumnDefs(MultiLoadoutsCount));
                 Loadout_Multi.ColumnsCount = MultiLoadoutsCount;
                 useMultiLoadouts = true;
                 Log.Message($"[CombatExtended.ExtendedLoadout] {MultiLoadoutsCount}x Loadout columns injected");
@@ -108,8 +103,11 @@ public class ExtendedLoadoutMod : ModBase
         // apply patches
         if (useMultiLoadouts && ModActive.BetterPawnControl)
         {
-            BPC.Patch(Harmony);
+            Log.Warning("BPC Is not supported with CE Extended Loadout currently");
+            //BPC.Patch(Harmony);
         }
+
+        Log.Warning("BPC patch passed");
 
         Harmony.PatchAll();
 
@@ -118,10 +116,11 @@ public class ExtendedLoadoutMod : ModBase
             LoadoutProxy_Patch.Unpatch();
         }
 
+        Log.Warning("LoadoutProxy_Patch passed");
         // add generic defs
         MedicineDefs.Initialize();
 
-        Log.Message("[CombatExtended.ExtendedLoadout] Initialized");
+        Log.Warning("[CombatExtended.ExtendedLoadout] Initialized");
     }
 
     private IEnumerable<PawnColumnDef> GeneratePawnColumnDefs(int count)

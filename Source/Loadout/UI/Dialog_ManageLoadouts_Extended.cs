@@ -41,7 +41,11 @@ public static class HideButtons_PersonalLoadout_Patch
         {
             return;
         }
-        instance.DrawNameField(canvas);
+        string text = GUI.TextField(canvas, instance.CurrentLoadout.label);
+        if (Outfit.ValidNameRegex.IsMatch(text))
+        {
+            instance.CurrentLoadout.label = text;
+        }
     }
 
     [HarmonyPatch(nameof(Dialog_ManageLoadouts.DoWindowContents))]
@@ -51,7 +55,7 @@ public static class HideButtons_PersonalLoadout_Patch
         var height30 = AccessTools.Method(typeof(HideButtons_PersonalLoadout_Patch), nameof(Height30)); ;
         var y42 = AccessTools.Method(typeof(HideButtons_PersonalLoadout_Patch), nameof(Y42)); ;
         var sortLoadouts = AccessTools.Method(typeof(LoadoutManager), nameof(LoadoutManager.SortLoadouts));
-        var drawNameField = AccessTools.Method(typeof(Dialog_ManageLoadouts), nameof(Dialog_ManageLoadouts.DrawNameField));
+        var drawNameField = AccessTools.Method(typeof(Dialog_ManageLoadouts), "DrawNameField");
         var drawNameFieldNew = AccessTools.Method(typeof(HideButtons_PersonalLoadout_Patch), nameof(DrawNameFieldNew));
         bool end = false;
 
