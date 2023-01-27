@@ -139,7 +139,7 @@ public class Dialog_ManageLoadouts_Extended : Dialog_ManageLoadouts
             var cardRect = canvas.RightPartPixels(_cardSize.x);//new Rect(canvas.x + ceSize.x, canvas.y + ceSize.y, _cardSize.x, _cardSize.y);
             CharacterCardUtility.DrawCharacterCard(cardRect, _pawn);
             canvas = canvas.LeftPartPixels(ceSize.x);
-            // DbgLog.Msg($"ceSize: {ceSize}, cardRect: {cardRect}, pawn: {_pawn}");
+             DbgLog.Msg($"ceSize: {ceSize}, cardRect: {cardRect}, pawn: {_pawn}");
 
             // reset selected pawn after change loadout
             if (CurrentLoadout != _pawnLoadout)

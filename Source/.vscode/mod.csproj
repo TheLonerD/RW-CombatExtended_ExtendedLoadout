@@ -30,6 +30,7 @@
 		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
     	<NullableReferenceTypes>true</NullableReferenceTypes>
+		<PublicizerClearCacheOnClean>true</PublicizerClearCacheOnClean>
 	</PropertyGroup>
 
 	<!-- Visual Studio Condition for debug build -->
@@ -42,28 +43,33 @@
 	 	<!-- Mod -->
 	 	<Compile Include="../*.cs" />
 	 	<Compile Include="../Loadout/**/*.cs" />
-	 	<PackageReference Include="Krafs.Publicizer" Version="1.0.2">
+	 	<PackageReference Include="Krafs.Publicizer" Version="2.2.1">
 	 	  <PrivateAssets>all</PrivateAssets>
 	 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	 	</PackageReference>
-	 	<PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.3389" />
-	 	<PackageReference Include="Lib.Harmony" Version="2.2.1">
+	 	<PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3613" />
+	 	<PackageReference Include="Lib.Harmony" Version="2.2.2">
 	 	  <ExcludeAssets>runtime</ExcludeAssets>
 	 	</PackageReference>
-	 	<PackageReference Include="UnlimitedHugs.Rimworld.HugsLib" Version="9.0.1">
+	 	<PackageReference Include="UnlimitedHugs.Rimworld.HugsLib" Version="10.0.1">
 	 	  <ExcludeAssets>runtime</ExcludeAssets>
 	 	</PackageReference>
 		
 	 	<!-- Publicizer -->
 		<Publicize Include="Assembly-CSharp;CombatExtended;BetterPawnControl" />
-		<Reference Include="../../../Combat*Extended/Assemblies/CombatExtended.dll">
-	 	  <Private>False</Private>
-	 	</Reference>
-	 	<Reference Include="../../../Better Pawn Control/Assemblies/BetterPawnControl.dll">
-	 	  <Private>False</Private>
-	 	</Reference>
 		
 	</ItemGroup>
+
+ 	<ItemGroup>
+ 	  <Reference Include="BetterPawnControl">
+ 	    <HintPath>D:\SteamLibrary\steamapps\workshop\content\294100\1541460369\v1.4\Assemblies\BetterPawnControl.dll</HintPath>
+ 	    <Private>False</Private>
+ 	  </Reference>
+ 	  <Reference Include="CombatExtended">
+ 	    <HintPath>E:\CACHE\CombatExtended-v1.4.5.1\Assemblies\CombatExtended.dll</HintPath>
+ 	    <Private>False</Private>
+ 	  </Reference>
+ 	</ItemGroup>
 
 	<UsingTask TaskName="VersionIncrement" AssemblyFile="msbuild/VersionIncrement.dll" />
 
@@ -77,6 +83,60 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="rd &quot;$(ProjectDir)\obj&quot; &quot;$(ProjectDir)\bin&quot; /S /Q" />
 	</Target>
+
+	<ItemGroup>
+	  <Reference Update="System">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Core">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Data">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Drawing">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.IO.Compression.FileSystem">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Numerics">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Runtime.Serialization">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Xml">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Xml.Linq">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
 
 
 </Project>

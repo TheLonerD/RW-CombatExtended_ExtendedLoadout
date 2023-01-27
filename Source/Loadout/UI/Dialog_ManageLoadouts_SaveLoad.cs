@@ -48,7 +48,7 @@ public static class LoadUtil
 
     public static LoadoutConfigs ToConfig(this IEnumerable<Loadout> loadouts)
     {
-        return new LoadoutConfigs { configs = loadouts.Select(x => x.ToConfig()).ToArray() };
+        return new LoadoutConfigs { configs = loadouts.ToConfig().configs };
     }
 
     public static Loadout[] FromConfig(LoadoutConfigs loadoutConfig, out List<string> unloadableDefNames)
@@ -65,17 +65,21 @@ public static class LoadUtil
 
     public static LoadoutConfig ToConfig(this Loadout loadout)
     {
-        List<LoadoutSlotConfig> loadoutSlotConfigList = new List<LoadoutSlotConfig>();
+        int i = 0;
+        LoadoutSlotConfig[] temp = new LoadoutSlotConfig[loadout.ToConfig().slots.Length];
 
-        foreach (LoadoutSlot loadoutSlot in loadout._slots)
+        foreach (var loadoutSlot in loadout.ToConfig().slots)
         {
-            loadoutSlotConfigList.Add(loadoutSlot.ToConfig());
+            temp[i].isGenericDef = loadoutSlot.isGenericDef;
+            temp[i].defName = loadoutSlot.defName;
+            temp[i].count = loadoutSlot.count;
+            i++;
         }
-        
+
         return new LoadoutConfig
         {
             label = loadout.label,
-            slots = loadoutSlotConfigList.ToArray()
+            slots = temp
         };
     }
 

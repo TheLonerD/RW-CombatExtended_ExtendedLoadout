@@ -15,6 +15,7 @@ namespace CombatExtended.ExtendedLoadout;
 [HotSwappable]
 public class Dialog_ManageLoadouts_DoWindowContents_Patch
 {
+    private static readonly float allowedMaxYIncrease = 100f;
     static bool Prepare() => ExtendedLoadoutMod.Instance.useHpAndQualityInLoadouts;
 
     [HarmonyTranspiler]
@@ -41,7 +42,7 @@ public class Dialog_ManageLoadouts_DoWindowContents_Patch
                 // draw after DrawSlotList(slotListRect);
                 yield return ci;
                 yield return new CodeInstruction(OpCodes.Ldarg_0); // this
-                yield return new CodeInstruction(OpCodes.Ldloc_S, 8); // local: bulkBarRect
+                yield return new CodeInstruction(OpCodes.Ldloc_S, 10); // local: bulkBarRect
                 yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Dialog_ManageLoadouts_DoWindowContents_Patch), nameof(DrawHpQuality)));
                 drawHpQualityInjected = true;
             }
@@ -59,13 +60,13 @@ public class Dialog_ManageLoadouts_DoWindowContents_Patch
 
     public static void DrawHpQuality(Dialog_ManageLoadouts dialog, Rect bulkBarRect)
     {
-        Rect refillRect = new(bulkBarRect.xMin, bulkBarRect.yMax + Dialog_ManageLoadouts._margin, bulkBarRect.width, Dialog_ManageLoadouts._barHeight);
+        Rect refillRect = new(bulkBarRect.xMin, bulkBarRect.yMax + 36f, bulkBarRect.width, Dialog_ManageLoadouts._barHeight);
         Rect hpRect = new(refillRect.xMin, refillRect.yMax + Dialog_ManageLoadouts._margin, refillRect.width, Dialog_ManageLoadouts._barHeight);
         Rect qualityRect = new(hpRect.xMin, hpRect.yMax + Dialog_ManageLoadouts._margin, hpRect.width, Dialog_ManageLoadouts._barHeight);
         var loadoutExtended = dialog.CurrentLoadout.Extended();
         
         GUI.color = Widgets.RangeControlTextColor;
-        loadoutExtended.RefillThreshold = Widgets.HorizontalSlider(refillRect, loadoutExtended.RefillThreshold, 0f, 1f, false, "CE_Extended.RefillThreshold".Translate(Mathf.RoundToInt(loadoutExtended.RefillThreshold * 100)), null, null, -1f);
+        loadoutExtended.RefillThreshold = Widgets.HorizontalSlider_NewTemp(refillRect, loadoutExtended.RefillThreshold, 0f, 1f, false, "CE_Extended.RefillThreshold".Translate(Mathf.RoundToInt(loadoutExtended.RefillThreshold * 100)), null, null, -1f);
         GUI.color = Color.white;
         
         Widgets.FloatRange(hpRect, 976833333, ref loadoutExtended.HpRange, 0f, 1f, "HitPoints", ToStringStyle.PercentZero);
