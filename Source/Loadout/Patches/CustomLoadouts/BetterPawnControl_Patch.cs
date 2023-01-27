@@ -18,7 +18,7 @@ public class BPC_AssignLink_Manager
     /// Dictionary< AssignLink, List<int> >
     /// </summary>
     /// 
-    /*
+    
     private static readonly Dictionary<object, List<int>> LoadoutIds = new();
 
     public static void AddColumnsIds(object link, List<int> columnIds)
@@ -205,13 +205,13 @@ public static class BPC
 
     public static IEnumerable<CodeInstruction> BetterPawnControl_AssignManager_LoadState(IEnumerable<CodeInstruction> instructions)
     {
-        *//*
+        /*
         82	010B	brfalse.s	87 (011A) ldloca.s V_4 (4)
         83	010D	ldloc.3
         84	010E	ldloc.s	V_5 (5)
         85	0110	ldfld	int32 BetterPawnControl.AssignLink::loadoutId
         86	0115	call	void BetterPawnControl.Widget_CombatExtended::SetLoadoutById(class ['Assembly-CSharp']Verse.Pawn, int32)
-         *//*
+         */
         var code = instructions.ToList();
         var setLoadoutById = AccessTools.Method($"BetterPawnControl.Widget_CombatExtended:SetLoadoutById");
         int fixedSetLoadoutId = 0;
@@ -243,7 +243,7 @@ public static class BPC
 
     public static IEnumerable<CodeInstruction> BetterPawnControl_AssignManager_SaveCurrentState(IEnumerable<CodeInstruction> instructions)
     {
-        *//*
+        /*
         51	00AE	call	bool BetterPawnControl.Widget_CombatExtended::get_CombatExtendedAvailable()
 
         52	00B3	brfalse	121 (01AB) ldloca.s V_1 (1)
@@ -263,7 +263,7 @@ public static class BPC
         65	00DE	call	int32 BetterPawnControl.Widget_CombatExtended::GetLoadoutId(class ['Assembly-CSharp']Verse.Pawn)
         66	00E3	stloc.s	V_4 (4)
 
-         *//*
+         */
         var code = instructions.ToList();
         var getLoadoutId = AccessTools.Method($"BetterPawnControl.Widget_CombatExtended:GetLoadoutId");
         int fixedGetLoadoutId = 0;
@@ -306,5 +306,5 @@ public static class BPC
         {
             Log.Error($"Transpiler outdated!");
         }
-    }*/
+    }
 }

@@ -30,7 +30,6 @@
 		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
     	<NullableReferenceTypes>true</NullableReferenceTypes>
-    	<BaseOutputPath>C:\Users\kacey\Downloads\RW-CombatExtended_ExtendedLoadout-master\RW-CombatExtended_ExtendedLoadout-master\Source\.vscode</BaseOutputPath>
 	</PropertyGroup>
 
 	<!-- Visual Studio Condition for debug build -->
@@ -43,60 +42,65 @@
 	 	<!-- Mod -->
 	 	<Compile Include="../*.cs" />
 	 	<Compile Include="../Loadout/**/*.cs" />
-	 	<PackageReference Include="Krafs.Publicizer" Version="1.0.2">
+	 	<Compile Remove="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
+	 	<PackageReference Include="Krafs.Publicizer" Version="2.2.1">
 	 	  <PrivateAssets>all</PrivateAssets>
 	 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	 	</PackageReference>
-	 	<PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.3389" />
-	 	<PackageReference Include="Lib.Harmony" Version="2.2.1">
-	 	  <ExcludeAssets>runtime</ExcludeAssets>
-	 	</PackageReference>
-	 	<PackageReference Include="UnlimitedHugs.Rimworld.HugsLib" Version="9.0.1">
-	 	  <ExcludeAssets>runtime</ExcludeAssets>
 	 	</PackageReference>
 		
 	 	<!-- Publicizer -->
 		<Publicize Include="Assembly-CSharp;CombatExtended;BetterPawnControl" />
-		<Reference Include="../../../Combat*Extended/Assemblies/CombatExtended.dll">
-	 	  <Private>False</Private>
-	 	</Reference>
 		
 	</ItemGroup>
 
  	<ItemGroup>
- 	  <Compile Remove="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
+ 	  <None Include="..\Loadout\Patches\CustomLoadouts\BetterPawnControl_Patch.cs" />
+ 	  <None Include="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
  	</ItemGroup>
 
  	<ItemGroup>
  	  <Reference Include="0Harmony">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\0Harmony.dll</HintPath>
+ 	    <HintPath>..\..\..\..\..\..\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="Assembly-CSharp">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\Assembly-CSharp.dll</HintPath>
+ 	    <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="BetterPawnControl">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\BetterPawnControl.dll</HintPath>
+ 	    <HintPath>..\..\..\..\..\..\workshop\content\294100\1541460369\v1.4\Assemblies\BetterPawnControl.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="CombatExtended">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\CombatExtended.dll</HintPath>
+ 	    <HintPath>E:\CACHE\CombatExtended-v1.4.5.1\Assemblies\CombatExtended.dll</HintPath>
  	  </Reference>
  	  <Reference Include="HugsLib">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\HugsLib.dll</HintPath>
+ 	    <HintPath>..\..\..\..\..\..\workshop\content\294100\818773962\v1.4\Assemblies\HugsLib.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="UnityEngine">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.dll</HintPath>
+ 	    <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="UnityEngine.CoreModule">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.CoreModule.dll</HintPath>
+ 	    <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="UnityEngine.IMGUIModule">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.IMGUIModule.dll</HintPath>
+ 	    <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="UnityEngine.InputLegacyModule">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+ 	    <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+ 	    <Private>False</Private>
+ 	  </Reference>
+ 	  <Reference Include="UnityEngine.InputModule">
+ 	    <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="UnityEngine.TextRenderingModule">
- 	    <HintPath>E:\Rimworld_Assemblies\Hardcore-SK-Source-master\Hardcore-SK-Source-master\R1.4\Assemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+ 	    <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	</ItemGroup>
 
@@ -112,6 +116,60 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="rd &quot;$(ProjectDir)\obj&quot; &quot;$(ProjectDir)\bin&quot; /S /Q" />
 	</Target>
+
+	<ItemGroup>
+	  <Reference Update="System">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Core">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Data">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Drawing">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.IO.Compression.FileSystem">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Numerics">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Runtime.Serialization">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Xml">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Update="System.Xml.Linq">
+	    <Private>False</Private>
+	  </Reference>
+	</ItemGroup>
 
 
 </Project>
