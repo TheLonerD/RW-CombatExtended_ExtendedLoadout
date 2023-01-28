@@ -43,6 +43,8 @@
 	 	<!-- Mod -->
 	 	<Compile Include="../*.cs" />
 	 	<Compile Include="../Loadout/**/*.cs" />
+	 	<Compile Remove="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
+	 	<None Include="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
 		
 	 	<PackageReference Include="Krafs.Publicizer" Version="2.2.1">
 	 	  <PrivateAssets>all</PrivateAssets>
@@ -61,6 +63,7 @@
  	<ItemGroup>
  	  <Reference Include="0Harmony">
  	    <HintPath>..\..\..\..\..\..\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
+ 	    <Private>False</Private>
  	  </Reference>
  	  <Reference Include="BetterPawnControl">
  	    <HintPath>D:\SteamLibrary\steamapps\workshop\content\294100\1541460369\v1.4\Assemblies\BetterPawnControl.dll</HintPath>
