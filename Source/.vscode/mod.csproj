@@ -43,8 +43,6 @@
 	 	<!-- Mod -->
 	 	<Compile Include="../*.cs" />
 	 	<Compile Include="../Loadout/**/*.cs" />
-	 	<Compile Remove="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
-	 	<None Include="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
 		
 	 	<PackageReference Include="Krafs.Publicizer" Version="2.2.1">
 	 	  <PrivateAssets>all</PrivateAssets>
