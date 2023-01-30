@@ -45,7 +45,6 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
         Rect rect2 = new Rect(rect.x, rect.y + (rect.height - TopAreaHeight), Mathf.Min(rect.width, 360f), ManageOutfitsButtonHeight);
         if (Widgets.ButtonText(rect2, "CE_UpdateLoadoutNow".Translate(), true, false, true))
         {
-            Log.Warning("Wigets Button made");
             foreach (var pawn in Find.CurrentMap?.mapPawns?.AllPawnsSpawned ?? Enumerable.Empty<Pawn>())
             {
                 UpdateLoadoutNow(pawn);
