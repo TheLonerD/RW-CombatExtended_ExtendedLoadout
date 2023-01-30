@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.IO;
 using HarmonyLib;
 using JetBrains.Annotations;
 using RimWorld;
@@ -22,8 +23,7 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
     [UsedImplicitly]
     public static MethodBase TargetMethod()
     {
-        var type = AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass8_0");
-        return AccessTools.Method(type, "<FindPickup>b__3");
+        return AccessTools.Method(AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass8_0"), "<FindPickup>b__3");
     }
 
     [HarmonyTranspiler]
@@ -56,9 +56,10 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
             new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch), nameof(AllowEquip))),
             new CodeInstruction(OpCodes.Brfalse_S, code[idx - 1].operand), // read exit label from brtrue.s
         });
-
-        //File.WriteAllLines("a:\\before.txt", instructions.Select(x => x.ToString()));
-        //File.WriteAllLines("a:\\after.txt", code.Select(x => x.ToString()));
+#if DEBUG
+        File.WriteAllLines("E:\\Validatorbefore.txt", instructions.Select(x => x.ToString()));
+        File.WriteAllLines("E:\\Validatorafter.txt", code.Select(x => x.ToString()));
+#endif
         return code;
     }
 

@@ -8,7 +8,6 @@ using System.Xml.Serialization;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Verse;
 
 namespace CombatExtended.ExtendedLoadout;
@@ -41,9 +40,9 @@ public static class LoadUtil
     {
         return new LoadoutSlotConfig
         {
-            isGenericDef = loadoutSlot.genericDef.GetType() == typeof(LoadoutGenericDef),
-            defName = loadoutSlot.thingDef.defName,
-            count = loadoutSlot.count
+            isGenericDef = loadoutSlot._type == typeof(LoadoutGenericDef),
+            defName = loadoutSlot._def.defName,
+            count = loadoutSlot._count
         };
     }
 
@@ -51,7 +50,6 @@ public static class LoadUtil
     {
         return new LoadoutConfigs { configs = loadouts.ToConfig().configs };
     }
-    
 
     public static Loadout[] FromConfig(LoadoutConfigs loadoutConfig, out List<string> unloadableDefNames)
     {
@@ -68,7 +66,7 @@ public static class LoadUtil
     public static LoadoutConfig ToConfig(this Loadout loadout)
     {
         int i = 0;
-     LoadoutSlotConfig[] temp = new LoadoutSlotConfig[loadout.ToConfig().slots.Length];
+        LoadoutSlotConfig[] temp = new LoadoutSlotConfig[loadout.ToConfig().slots.Length];
 
         foreach (var loadoutSlot in loadout.ToConfig().slots)
         {
@@ -93,28 +91,7 @@ public static class LoadUtil
         {
             return false;
         }
-        return !LoadoutManager.Loadouts.Any(l => l.label == label);
-    }
-
-    static string GetUniqueLabel(this string head)
-    {
-        LoadoutManager component = Current.Game.GetComponent<LoadoutManager>();
-        int num = 1;
-        string label;
-        if (component != null)
-        {
-            do
-            {
-                label = head + num++;
-            }
-            while (LoadoutManager.Loadouts.Any((Loadout l) => l.label == label));
-        }
-        else
-        {
-            label = head + num++;
-        }
-
-        return label;
+        return !manager._loadouts.Any(l => l.label == label);
     }
 
     public static LoadoutSlot FromConfig(LoadoutSlotConfig loadoutSlotConfig)
@@ -134,7 +111,8 @@ public static class LoadUtil
         // Create the new loadout, preventing name clashes if the loadout already exists
         string uniqueLabel = loadoutConfig.label.IsUniqueLoadoutLabel()
             ? loadoutConfig.label
-            : loadoutConfig.label.GetUniqueLabel();
+            : LoadoutManager.GetUniqueLabel(loadoutConfig.label);
+        
         Loadout loadout = new Loadout(uniqueLabel);
         
         unloadableDefNames = new List<string>();
@@ -170,10 +148,9 @@ public static class Dialog_ManageLoadouts_SaveLoad
     [HarmonyPostfix]
     public static void Postfix(Dialog_ManageLoadouts __instance, Rect canvas)
     {
-        // _topAreaHeight and _margin are now private const. -topAreaHeight = 30f and _margin = 6f. Yes its stupid.
-        var saveRect = canvas.RightPartPixels(30f + 6f);
-        saveRect.height = saveRect.width = 30f;
-
+        var saveRect = canvas.RightPartPixels(Dialog_ManageLoadouts._topAreaHeight + Dialog_ManageLoadouts._margin);
+        saveRect.height = saveRect.width = Dialog_ManageLoadouts._topAreaHeight;
+        
         if (Widgets.ButtonImage(saveRect, Textures.Save))
         {
             Find.WindowStack.Add(new Dialog_SaveLoad());
@@ -189,7 +166,7 @@ public class Dialog_SaveLoad : Window
     private string _saveFileName;
     private List<(string name, Loadout[] loadouts, LoadStatus status, string loadStatusMessage)> _files;
     private int _selectedFile = -1, _previousSelectedFile = -1;
-    private string _savePath = FolderUnderSaveData("CE.ExtendedLoadouts");
+    private string _savePath = GenFilePaths.FolderUnderSaveData("CE.ExtendedLoadouts");
     private Dictionary<Loadout, bool> _checkState = new();
     private Vector2 _loaudoutsScroll, _filesScroll;
     private Dictionary<string, ThingDef> _firstGenericCache = new();
@@ -211,18 +188,6 @@ public class Dialog_SaveLoad : Window
         closeOnAccept = false;
         draggable = true;
         ReloadFiles();
-    }
-
-    private static string FolderUnderSaveData(string folderName)
-    {
-        string text = Path.Combine(GenFilePaths.SaveDataFolderPath, folderName);
-        DirectoryInfo directoryInfo = new DirectoryInfo(text);
-        if (!directoryInfo.Exists)
-        {
-            directoryInfo.Create();
-        }
-
-        return text;
     }
 
     private void ReloadFiles()

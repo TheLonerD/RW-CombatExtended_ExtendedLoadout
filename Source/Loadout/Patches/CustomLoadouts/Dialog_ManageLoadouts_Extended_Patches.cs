@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using Verse;
+using System.IO;
+using System.Linq;
 
 namespace CombatExtended.ExtendedLoadout;
 
@@ -12,8 +14,8 @@ public class Dialog_ManageLoadouts_Patch
     [HarmonyTargetMethod]
     public static IEnumerable<MethodBase> TargetMethods()
     {
-        // 'Make loadout' button in Pawn inventory
-        //yield return AccessTools.Method(typeof(ITab_Inventory), nameof(ITab_Inventory.FillTab));
+        // 'Make loadout' button in Pawn inventory. Disabled as it's literally a one-use method
+        //yield return AccessTools.Method(typeof(ITab_Inventory), nameof(ITab_Inventory.SyncedAddLoadout));
         // 'Manage loadouts' button in Assign tab
         yield return AccessTools.Method(typeof(PawnColumnWorker_Loadout), nameof(PawnColumnWorker_Loadout.DoHeader));
         // method replaced by PawnColumnWorker_Loadout_Multi
@@ -23,6 +25,7 @@ public class Dialog_ManageLoadouts_Patch
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> CtorReplacer_Transpiler(MethodBase __originalMethod, IEnumerable<CodeInstruction> instructions)
     {
+        //File.WriteAllText("E:\\CrotReplacerBefore.txt", string.Concat(instructions.Select(x=>x.ToString())));
         var dialog_ManageLoadoutsCtor = AccessTools.Constructor(typeof(Dialog_ManageLoadouts), new[] { typeof(Loadout) });
         var dialog_ManageLoadouts_ExtendedCtor = AccessTools.Constructor(typeof(Dialog_ManageLoadouts_Extended), new[] { typeof(Loadout) });
 
