@@ -41,10 +41,8 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
 
     public override void DoHeader(Rect rect, PawnTable table)
     {
-        Log.Warning("PawnColumnWorker_UpdateLoadoutNow.DoHeader Entered");
         base.DoHeader(rect, table);
         Rect rect2 = new Rect(rect.x, rect.y + (rect.height - TopAreaHeight), Mathf.Min(rect.width, 360f), ManageOutfitsButtonHeight);
-        Log.Warning("Attempting to Make button");
         if (Widgets.ButtonText(rect2, "CE_UpdateLoadoutNow".Translate(), true, false, true))
         {
             Log.Warning("Wigets Button made");
@@ -61,7 +59,6 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
      */
     public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
     {
-        Log.Warning("PawnColumnWorker_UpdateLoadoutNow.DoCell Entered");
         if (pawn.outfits == null)
         {
             return;
@@ -98,7 +95,8 @@ public class PawnColumnWorker_UpdateLoadoutNow : PawnColumnWorker
         {
             if (Widgets.ButtonImage(forcedHoldRect, ClearImage))
             {
-                HoldTrackerClear(pawn); // yes this will also delete records that haven't been picked up and thus not shown to the player...
+                //Directly calling the main method since we do not support multiplayer mod. But still don't know why the multiplayer one is privatized while this one doesn't
+                pawn.HoldTrackerClear(); // yes this will also delete records that haven't been picked up and thus not shown to the player...
             }
             TooltipHandler.TipRegion(forcedHoldRect, new TipSignal(delegate
             {

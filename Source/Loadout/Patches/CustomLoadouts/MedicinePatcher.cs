@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using Verse;
 
 namespace CombatExtended.ExtendedLoadout;
 
@@ -70,10 +71,11 @@ class MedicinePatcher
             {
                 new CodeInstruction(OpCodes.Dup),
                 new CodeInstruction(OpCodes.Ldc_I4_S, 100),
-                new CodeInstruction(OpCodes.Blt_S, labels[i]),
+                new CodeInstruction(OpCodes.Blt_S, labels.GetEnumerator().Current),
                 new CodeInstruction(OpCodes.Pop),
                 new CodeInstruction(OpCodes.Ldc_I4_5)
             });
+            labels.GetEnumerator().MoveNext();
             DbgLog.Msg($"{String.Join("\n", list.GetRange(value - 1, 6).Select(x => x.ToString()))}");
         }
         /*for (i = 0; i < setValueIndex.Count; i++)
