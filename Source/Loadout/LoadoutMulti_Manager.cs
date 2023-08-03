@@ -33,6 +33,8 @@ public static class LoadoutMulti_Manager
                 DbgLog.Wrn($"LoadoutMulti_Manager ExposeData: moved assignmentLoadouts to assignedLoadoutsMulti");
             }
         }
+        if (assignedLoadoutsMulti.RemoveAll(x => x.Key is null) >= 0)
+            Log.WarningOnce("[Extended Loadout]There are loadouts with null pawns. Something went wrong during save.", 31547);
 
         DbgLog.Msg($"LoadoutMulti_Manager ExposeData");
     }
