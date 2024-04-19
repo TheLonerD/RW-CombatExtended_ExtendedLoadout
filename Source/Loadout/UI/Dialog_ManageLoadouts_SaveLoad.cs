@@ -110,7 +110,7 @@ public static class LoadUtil
         return !manager._loadouts.Any(l => l.label == label);
     }
 
-    public static LoadoutSlot FromConfig(LoadoutSlotConfig loadoutSlotConfig)
+    public static LoadoutSlot? FromConfig(LoadoutSlotConfig loadoutSlotConfig)
     {
         if (loadoutSlotConfig.isGenericDef)
         {
@@ -136,7 +136,7 @@ public static class LoadUtil
         // Now create each of the slots
         foreach (LoadoutSlotConfig loadoutSlotConfig in loadoutConfig.slots)
         {
-            LoadoutSlot loadoutSlot = FromConfig(loadoutSlotConfig);
+            LoadoutSlot? loadoutSlot = FromConfig(loadoutSlotConfig);
             // If the LoadoutSlot could not be loaded then continue loading the others as this most likely means
             // that the current game does not have the mod loaded that was used to create the initial loadout.
             if (loadoutSlot == null)
@@ -179,7 +179,7 @@ public class Dialog_SaveLoad : Window
     private const bool closeOnSave = false;
     private const int elementHeight = 25;
     private const int margin = 5;
-    private string _saveFileName;
+    private string _saveFileName = "Loadouts";
     private List<(string name, Loadout[] loadouts, LoadStatus status, string loadStatusMessage)> _files;
     private int _selectedFile = -1, _previousSelectedFile = -1;
     private string _savePath = GenFilePaths.SaveDataFolderPath + "/CE.ExtendedLoadouts";
