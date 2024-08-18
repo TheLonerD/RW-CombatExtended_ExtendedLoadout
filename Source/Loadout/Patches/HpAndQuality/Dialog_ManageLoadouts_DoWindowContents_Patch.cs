@@ -68,7 +68,7 @@ public class Dialog_ManageLoadouts_DoWindowContents_Patch
 
         GUI.color = (Color)AccessTools.Field(typeof(Widgets), "RangeControlTextColor").GetValue(new Color());
 
-        loadoutExtended.RefillThreshold = Widgets.HorizontalSlider(refillRect, loadoutExtended.RefillThreshold, 0f, 1f, false, "CE_Extended.RefillThreshold".Translate(Mathf.RoundToInt(loadoutExtended.RefillThreshold * 100)), null, null, -1f);
+        loadoutExtended.RefillThreshold = Widgets.HorizontalSlider_NewTemp(refillRect, loadoutExtended.RefillThreshold, 0f, 1f, false, "CE_Extended.RefillThreshold".Translate(Mathf.RoundToInt(loadoutExtended.RefillThreshold * 100)), null, null, -1f);
         GUI.color = Color.white;
         
         Widgets.FloatRange(hpRect, 976833333, ref loadoutExtended.HpRange, 0f, 1f, "HitPoints", ToStringStyle.PercentZero);
