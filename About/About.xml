@@ -3,7 +3,7 @@
 	<name>Combat Extended - Extended Loadout</name>
 	<author>PirateBY</author>
 	<supportedVersions>
-		<li>1.4</li>
+		<li>1.5</li>
 	</supportedVersions>
 	<packageId>pirateby.ce.extendedloadout</packageId>
 	<description>
@@ -16,7 +16,6 @@ Features:
 
 All features configurable in mod settings
 
-This mod compatible with BetterPawnControl
 
 
 

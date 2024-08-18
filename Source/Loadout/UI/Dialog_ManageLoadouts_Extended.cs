@@ -42,7 +42,7 @@ public static class HideButtons_PersonalLoadout_Patch
             return;
         }
         string text = GUI.TextField(canvas, instance.CurrentLoadout.label);
-        if (Outfit.ValidNameRegex.IsMatch(text))
+        if (Dialog_ManageLoadouts.validNameRegex.IsMatch(text))
         {
             instance.CurrentLoadout.label = text;
         }
