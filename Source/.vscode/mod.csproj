@@ -41,6 +41,7 @@
 	<ItemGroup>
 
 		<!-- Mod -->
+		<Compile Include="..\**\*.cs" />
 		<Compile Remove="..\Loadout\Patches\CustomLoadouts\BetterPawnControl_Patch.cs" />
 		<Compile Remove="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
 		<Reference Include="CombatExtended">
@@ -52,7 +53,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.*" />
-		<PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="Runtime" PrivateAssets="All" />
+		<PackageReference Include="Lib.Harmony" Version="2.3.*" ExcludeAssets="Runtime" PrivateAssets="All" />
 		<PackageReference Include="UnlimitedHugs.Rimworld.HugsLib" Version="11.0.3" ExcludeAssets="Runtime" />
 
 		<!-- Publicizer -->
