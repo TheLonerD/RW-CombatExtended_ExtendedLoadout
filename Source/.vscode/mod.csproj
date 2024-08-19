@@ -26,7 +26,7 @@
 
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks> <!-- allow unsafe code -->
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo> <!-- false if you want use AssemblyInfo.cs -->
-		<Deterministic>true</Deterministic> <!-- Produce byte-for-byte equivalent output from the same input source. -->
+		<Deterministic>false</Deterministic> <!-- Produce byte-for-byte equivalent output from the same input source. -->
 		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<NullableReferenceTypes>true</NullableReferenceTypes>
