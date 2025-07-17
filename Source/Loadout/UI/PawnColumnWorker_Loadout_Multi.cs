@@ -153,7 +153,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
 
             if (Widgets.ButtonImage(personalLoadoutRect, Textures.PersonalLoadout))
             {
-                Find.WindowStack.Add(new Dialog_ManageLoadouts_Extended(pawn, (pawn.GetLoadout() as Loadout_Multi)!.PersonalLoadout));
+                Find.WindowStack.Add(new Dialog_ManageLoadouts_Extended(pawn, (pawn.GetLoadout() as Loadout_Multi)!.PersonalLoadout!));
             }
             TooltipHandler.TipRegion(personalLoadoutRect, new TipSignal("CE_Extended.PersonalLoadoutTip".Translate(), pawn.GetHashCode() * 6178));
         }
