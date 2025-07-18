@@ -49,7 +49,7 @@
 		<Compile Remove="..\Loadout\Patches\CustomLoadouts\BetterPawnControl_Patch.cs" />
 		<Compile Remove="..\Loadout\Patches\CustomLoadouts\MedicinePatcher.cs" />
 		<Reference Include="CombatExtended">
-			<HintPath>..\..\..\CombatExtended\Assemblies\CombatExtended.dll</HintPath>
+			<HintPath>..\..\..\1.5\Assemblies\CombatExtended.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<PackageReference Include="Krafs.Publicizer" Version="2.*">
